@@ -27,7 +27,7 @@ export default function Page() {
 
       {currentTrack && revealed ? (
         <div
-          className="absolute inset-0 bg-cover bg-center blur-3xl animate-in fade-in -z-10 opacity-50"
+          className="absolute inset-0 bg-cover bg-center blur-3xl animate-in fade-in opacity-50"
           style={{
             backgroundImage: `url(${currentTrack.item.album.images[0].url})`,
           }}
