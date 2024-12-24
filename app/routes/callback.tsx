@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useAuth } from "../hooks/user-auth";
 
-export const CallbackPage = () => {
+export default function Page() {
   const navigate = useNavigate();
   const { setToken } = useAuth();
 
@@ -25,4 +25,4 @@ export const CallbackPage = () => {
   });
 
   return null;
-};
+}

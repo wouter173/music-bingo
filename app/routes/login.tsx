@@ -18,6 +18,10 @@ const LoginButton = () => {
   return <a href={loginUrl}>Login with Spotify</a>;
 };
 
-export const LoginPage = () => {
+export default function Page() {
   return <LoginButton />;
-};
+}
+
+// export async function loader() {
+//   return {};
+// }

@@ -7,7 +7,7 @@ import { useCurrentSong } from "../hooks/use-current-song";
 import { useMe } from "../hooks/use-me";
 import { useNextSong } from "../hooks/use-next-song";
 
-export const AppPage = () => {
+export default function Page() {
   const { data: meData } = useMe();
   const { nextSong } = useNextSong();
 
@@ -84,7 +84,7 @@ export const AppPage = () => {
       </div>
     </div>
   );
-};
+}
 
 const CurrentTrack = ({
   revealed,
