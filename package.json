@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "react-router dev",
-    "build": "cross-env NODE_ENV=production react-router build",
-    "start": "cross-env NODE_ENV=production react-router-serve ./build/server/index.js",
+    "build": "react-router typegen && cross-env NODE_ENV=production react-router build",
     "typecheck": "react-router typegen && tsc",
     "lint": "eslint"
   },
