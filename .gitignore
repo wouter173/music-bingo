@@ -1,4 +1,7 @@
 # Logs
+/.react-router/
+/build/
+
 logs
 *.log
 npm-debug.log*

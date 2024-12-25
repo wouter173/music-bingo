@@ -36,7 +36,7 @@ export default function Page() {
 
       <div className="relative">
         <div
-          className="p-4 bg-black/30 rounded-2xl"
+          className="p-4 bg-black/30 rounded-3xl"
           style={{
             transition: revealed ? "all 300ms ease-in-out" : "",
             transform: revealed ? "rotateY(0deg)" : "rotateY(180deg)",
@@ -50,7 +50,7 @@ export default function Page() {
           />
         </div>
         <div
-          className="absolute inset-0 p-4 bg-black/30 rounded-2xl"
+          className="absolute inset-0 p-4 bg-black/30 rounded-3xl"
           style={{
             transition: revealed ? "all 300ms ease-in-out" : "",
             transform: revealed ? "rotateY(180deg)" : "rotateY(0deg)",
