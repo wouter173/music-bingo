@@ -11,11 +11,16 @@ import {
 } from "react";
 
 const styles = cva(
-  "select-none touch-none cursor-pointer h-fit w-fit focus:outline-none transition-all",
+  "select-none touch-none cursor-pointer h-fit focus:outline-none transition-all",
   {
     variants: {
       intent: {
-        primary: "bg-white text-black rounded-full",
+        primary: "text-black rounded-full",
+        text: "text-white rounded-full",
+      },
+      span: {
+        full: "w-full",
+        fit: "w-fit",
       },
       size: {
         sm: "px-2 py-1 text-xs",
@@ -34,11 +39,14 @@ const styles = cva(
     compoundVariants: [
       { intent: "primary", isPressed: true, className: "bg-white/70" },
       { intent: "primary", isPressed: false, className: "bg-white" },
+      { intent: "text", isPressed: true, className: "bg-white/10" },
+      { intent: "text", isPressed: false, className: "bg-transparent" },
     ],
     defaultVariants: {
       size: "md",
       intent: "primary",
       disabled: false,
+      span: "fit",
     },
   }
 );
@@ -61,6 +69,7 @@ export const Button = ({
   size,
   disabled,
   style,
+  span,
   asChild = false,
   ref: imperativeRef,
   ...props
@@ -80,7 +89,10 @@ export const Button = ({
       <Comp
         ref={ref}
         style={{ WebkitTapHighlightColor: "transparent", ...style }}
-        className={cn(styles({ intent, size, disabled, isPressed }), className)}
+        className={cn(
+          styles({ intent, size, disabled, isPressed, span }),
+          className
+        )}
         {...props}
         {...buttonProps}
       >

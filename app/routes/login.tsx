@@ -18,11 +18,21 @@ const loginUrl = `${AUTH_URL}?client_id=${CLIENT_ID}&redirect_uri=${encodeURICom
 
 const LoginButton = () => {
   return (
-    <div className="grid grid-flow-row gap-4 w-1/2 mx-auto py-20">
-      <div className="grid items-center place-items-center gap-4">
-        <Button intent="primary" asChild>
-          <a href={loginUrl}>Login with Spotify</a>
+    <div className="w-full min-h-svh relative grid content-center place-items-center bg-black">
+      <div className="w-full h-svh relative z-20 py-20 flex justify-between flex-col items-center">
+        <img
+          src="/wordmark.png"
+          alt=""
+          width={200}
+          className="row-start-2 -ml-2"
+        />
+        <Button intent="primary" asChild className="relative py-3">
+          <a href={loginUrl} className="flex gap-2 font-bold">
+            Sign in with Spotify
+            <img src="/spotify-icon.svg" alt="" width={22} height={22} />
+          </a>
         </Button>
+        <div></div>
       </div>
     </div>
   );
@@ -31,7 +41,3 @@ const LoginButton = () => {
 export default function Page() {
   return <LoginButton />;
 }
-
-// export async function loader() {
-//   return {};
-// }

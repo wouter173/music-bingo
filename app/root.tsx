@@ -23,22 +23,23 @@ export const links: Route.LinksFunction = () => [
   },
   { rel: "stylesheet", href: stylesheet },
   { rel: "manifest", href: "/manifest.json" },
-  { rel: "icon", href: "https://fav.farm/%F0%9F%AA%A9" },
+  { rel: "icon", href: "/icon.svg" },
 ];
 
 export const meta: Route.MetaFunction = () => [
   { title: "Music Bingo" },
   { property: "og:title", content: "Music Bingo" },
+  { name: "viewport", content: "width=device-width, initial-scale=1" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="bg-zinc-900 text-zinc-100">
+    <html lang="en" className="bg-black text-zinc-100 **:select-none">
       <head>
         <Meta />
         <Links />
       </head>
-      <body className="bg-zinc-900 text-zinc-100 font-sans relative min-h-svh">
+      <body className="bg-black text-zinc-100 font-sans relative min-h-svh">
         {children}
         <ScrollRestoration />
         <Scripts />

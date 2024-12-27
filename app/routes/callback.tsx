@@ -21,7 +21,7 @@ export default function Page() {
       setToken(params["access_token"]);
     }
 
-    navigate({ pathname: "/app" });
+    navigate({ pathname: "/" });
   });
 
   return null;
