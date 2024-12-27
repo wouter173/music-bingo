@@ -3,7 +3,11 @@ import { currentSchema } from "@/schemas/current";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export const useCurrentSong = () => {
+export const useCurrentSong = ({
+  onTrackChange,
+}: {
+  onTrackChange: () => void;
+}) => {
   const { token, logout } = useAuth();
 
   const { data, isLoading } = useQuery({
@@ -25,11 +29,13 @@ export const useCurrentSong = () => {
         return null;
       }
 
+      if (result.data.item.id !== data?.item.id) {
+        onTrackChange();
+      }
+
       return result.data;
     },
   });
-
-  console.log(data, isLoading);
 
   return { currentTrack: data, isLoading };
 };

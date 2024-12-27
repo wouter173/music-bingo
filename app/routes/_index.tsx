@@ -14,12 +14,18 @@ export default function Page() {
   const { nextSong } = useNextSong();
 
   const [revealed, setRevealed] = useState(false);
-  const { currentTrack, isLoading } = useCurrentSong();
+  const [awaitingNextTrack, setAwaitingNextTrack] = useState(false);
+  const { currentTrack, isLoading } = useCurrentSong({
+    onTrackChange: () => {
+      setRevealed(false);
+      setAwaitingNextTrack(false);
+    },
+  });
 
   return (
     <div className="mx-auto w-fit py-10">
       <div className="mx-auto w-fit pb-10">
-        <img src="/wordmark.png" alt="" width={160} className="opacity-95" />
+        <img src="/wordmark.png" alt="" width={160} />
       </div>
       {currentTrack && !revealed ? (
         <img src={currentTrack.item.album.images[0].url} className="hidden" />
@@ -67,6 +73,7 @@ export default function Page() {
       <div className="flex flex-col gap-3 mx-auto mt-20 w-4/5 relative items-center">
         {!revealed && (
           <Button
+            disabled={awaitingNextTrack}
             size={"lg"}
             intent="primary"
             span={"full"}
@@ -93,6 +100,7 @@ export default function Page() {
           onPress={async () => {
             document.startViewTransition(async () => {
               setRevealed(false);
+              setAwaitingNextTrack(true);
               await nextSong();
             });
           }}

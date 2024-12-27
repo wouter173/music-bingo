@@ -16,14 +16,20 @@ export const TrackDisplay = ({
         alt={`album cover for ${name}`}
         width={300}
         height={300}
-        className="rounded-xl w-full aspect-square "
+        className="rounded-xl w-full aspect-square"
       />
-      <div className="grid grid-cols-[232px,60px] max-[300px] gap-2">
+      <div className="grid grid-cols-[232px,60px] max-w-[300px] gap-2">
         <div className="flex flex-col gap-1">
-          <p className="text-xl truncate font-semibold" title={name}>
+          <p
+            className="text-xl truncate max-w-[300px] font-semibold"
+            title={name}
+          >
             {name}
           </p>
-          <p className="text-sm truncate" title={artists.join(", ")}>
+          <p
+            className="text-sm truncate max-w-[300px]"
+            title={artists.join(", ")}
+          >
             {artists.join(", ")}
           </p>
         </div>
