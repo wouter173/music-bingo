@@ -2,14 +2,7 @@ import { StrictMode } from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  type MetaFunction,
-} from "react-router";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { Toaster } from "sonner";
 
 import { type Route } from "../.react-router/types/app/+types/root";
@@ -30,18 +23,18 @@ export const links: Route.LinksFunction = () => [
   },
   { rel: "stylesheet", href: stylesheet },
   { rel: "manifest", href: "/manifest.json" },
+  { rel: "icon", href: "https://fav.farm/%F0%9F%AA%A9" },
 ];
 
-export const meta: MetaFunction = () => [
-  { name: "title", content: "Music Bingo" },
+export const meta: Route.MetaFunction = () => [
+  { title: "Music Bingo" },
+  { property: "og:title", content: "Music Bingo" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="bg-zinc-900 text-zinc-100">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>

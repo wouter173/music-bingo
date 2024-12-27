@@ -1,7 +1,7 @@
+import { useAuth } from "@/hooks/user-auth";
+import { currentSchema } from "@/schemas/current";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { currentSchema } from "../schemas/current";
-import { useAuth } from "./user-auth";
 
 export const useCurrentSong = () => {
   const { token, logout } = useAuth();
@@ -16,6 +16,7 @@ export const useCurrentSong = () => {
       );
 
       if (response.status === 401) logout();
+      if (response.status === 204) return null;
 
       const result = currentSchema.safeParse(await response.json());
       if (!result.success) {
@@ -27,6 +28,8 @@ export const useCurrentSong = () => {
       return result.data;
     },
   });
+
+  console.log(data, isLoading);
 
   return { currentTrack: data, isLoading };
 };

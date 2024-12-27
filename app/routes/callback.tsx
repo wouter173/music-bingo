@@ -1,6 +1,6 @@
+import { useAuth } from "@/hooks/user-auth";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "../hooks/user-auth";
 
 export default function Page() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function Page() {
       setToken(params["access_token"]);
     }
 
-    navigate("/");
+    navigate({ pathname: "/app" });
   });
 
   return null;

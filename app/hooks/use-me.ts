@@ -1,6 +1,6 @@
+import { useAuth } from "@/hooks/user-auth";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import { useAuth } from "./user-auth";
 
 export const useMe = () => {
   const { logout, token } = useAuth();

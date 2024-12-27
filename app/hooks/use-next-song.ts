@@ -1,5 +1,5 @@
+import { useAuth } from "@/hooks/user-auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "./user-auth";
 
 export const useNextSong = () => {
   const { token } = useAuth();
