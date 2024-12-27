@@ -7,5 +7,10 @@
   "name": "Music Bingo",
   "short_name": "Music Bingo",
   "description": "A sample PWA App using React",
-  "icons": []
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any"
+    }
+  ]
 }

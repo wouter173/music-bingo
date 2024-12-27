@@ -14,8 +14,10 @@ const styles = cva(
   "select-none touch-none cursor-pointer h-fit focus:outline-none transition-all",
   {
     variants: {
-      intent: {
+      variant: {
         primary: "text-black rounded-full",
+        "primary-dark":
+          "bg-white/2 border-white/5 border text-white rounded-md",
         text: "text-white rounded-full",
       },
       span: {
@@ -26,6 +28,7 @@ const styles = cva(
         sm: "px-2 py-1 text-xs",
         md: "px-4 py-2 text-sm",
         lg: "px-6 py-3 text-base",
+        square: "p-1.5 text-base",
       },
       disabled: {
         true: "pointer-events-none opacity-50",
@@ -37,14 +40,16 @@ const styles = cva(
       },
     },
     compoundVariants: [
-      { intent: "primary", isPressed: true, className: "bg-white/70" },
-      { intent: "primary", isPressed: false, className: "bg-white" },
-      { intent: "text", isPressed: true, className: "bg-white/10" },
-      { intent: "text", isPressed: false, className: "bg-transparent" },
+      { variant: "primary", isPressed: true, className: "bg-white/70" },
+      { variant: "primary", isPressed: false, className: "bg-white" },
+      { variant: "text", isPressed: true, className: "bg-white/10" },
+      { variant: "text", isPressed: false, className: "bg-transparent" },
+      { variant: "primary-dark", isPressed: true, className: "bg-white/10" },
+      { variant: "primary-dark", isPressed: false, className: "bg-white/2" },
     ],
     defaultVariants: {
       size: "md",
-      intent: "primary",
+      variant: "primary",
       disabled: false,
       span: "fit",
     },
@@ -65,7 +70,7 @@ export type ButtonProps = Omit<
 export const Button = ({
   className,
   children,
-  intent,
+  variant,
   size,
   disabled,
   style,
@@ -90,7 +95,7 @@ export const Button = ({
         ref={ref}
         style={{ WebkitTapHighlightColor: "transparent", ...style }}
         className={cn(
-          styles({ intent, size, disabled, isPressed, span }),
+          styles({ variant, size, disabled, isPressed, span }),
           className
         )}
         {...props}
