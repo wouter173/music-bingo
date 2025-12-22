@@ -1,18 +1,24 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 
+const isClient = typeof window !== "undefined";
+
 export const useAuth = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   return {
-    token: localStorage.getItem("access_token"),
+    token: isClient ? localStorage.getItem("access_token") : null,
     setToken: (token: string) => {
-      localStorage.setItem("access_token", token);
+      if (isClient) {
+        localStorage.setItem("access_token", token);
+      }
     },
     logout: (): never => {
       queryClient.clear();
-      localStorage.removeItem("access_token");
+      if (isClient) {
+        localStorage.removeItem("access_token");
+      }
       navigate("/login");
       throw new Error("Logged out");
     },

@@ -14,7 +14,7 @@ const scopes = [
 
 const loginUrl = `${AUTH_URL}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
   REDIRECT_URI
-)}&scope=${encodeURIComponent(scopes.join(" "))}&response_type=token`;
+)}&scope=${encodeURIComponent(scopes.join(" "))}&response_type=code`;
 
 const LoginButton = () => {
   return (
