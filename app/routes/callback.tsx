@@ -1,74 +1,51 @@
 import { useAuth } from "@/hooks/user-auth";
-import { useEffect } from "react";
-import { redirect, useLoaderData, useNavigate } from "react-router";
-import type { Route } from "./+types/callback";
-
-export async function loader({ request }: Route.LoaderArgs) {
-  const url = new URL(request.url);
-  const code = url.searchParams.get("code");
-  const error = url.searchParams.get("error");
-
-  if (error) {
-    return { error, token: null, refreshToken: null };
-  }
-
-  if (!code) {
-    return { error: "No authorization code received", token: null, refreshToken: null };
-  }
-
-  try {
-    const response = await fetch("https://accounts.spotify.com/api/token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        grant_type: "authorization_code",
-        code: code,
-        redirect_uri: `${process.env.VITE_APP_URL}/callback`,
-        client_id: process.env.VITE_SPOTIFY_CLIENT_ID!,
-        client_secret: process.env.SPOTIFY_CLIENT_SECRET!,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      return { 
-        error: errorData.error_description || "Failed to exchange code for token", 
-        token: null, 
-        refreshToken: null 
-      };
-    }
-
-    const data = await response.json();
-    return { 
-      error: null, 
-      token: data.access_token, 
-      refreshToken: data.refresh_token 
-    };
-  } catch (err) {
-    return { 
-      error: err instanceof Error ? err.message : "Unknown error", 
-      token: null, 
-      refreshToken: null 
-    };
-  }
-}
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function Page() {
-  const { error, token, refreshToken } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const { setToken } = useAuth();
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (token) {
-      setToken(token);
-      if (refreshToken) {
-        localStorage.setItem("refresh_token", refreshToken);
+    const exchangeCodeForToken = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get("code");
+      const errorParam = urlParams.get("error");
+
+      if (errorParam) {
+        setError(errorParam);
+        return;
       }
-      navigate({ pathname: "/" });
-    }
-  }, [token, refreshToken, setToken, navigate]);
+
+      if (!code) {
+        setError("No authorization code received");
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/auth/callback?code=${encodeURIComponent(code)}`);
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error || "Failed to exchange code for token");
+        }
+
+        const data = await response.json();
+        setToken(data.access_token);
+        
+        if (data.refresh_token) {
+          localStorage.setItem("refresh_token", data.refresh_token);
+        }
+
+        navigate({ pathname: "/" });
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Unknown error");
+      }
+    };
+
+    exchangeCodeForToken();
+  }, [navigate, setToken]);
 
   if (error) {
     return (
