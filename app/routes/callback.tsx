@@ -27,7 +27,7 @@ export async function loader({ request }: Route.LoaderArgs) {
         code: code,
         redirect_uri: `${process.env.VITE_APP_URL}/callback`,
         client_id: process.env.VITE_SPOTIFY_CLIENT_ID!,
-        client_secret: process.env.VITE_SPOTIFY_CLIENT_SECRET!,
+        client_secret: process.env.SPOTIFY_CLIENT_SECRET!,
       }),
     });
 
