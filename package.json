@@ -38,6 +38,7 @@
     "@types/node": "^20",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
+    "@vercel/node": "^5.5.16",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
